@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="bg-music" loop autoplay>
+        <source src="audio/birthday.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bgMusic = document.getElementById("bg-music");
+    
+            // Try to play music immediately
+            bgMusic.play().catch(err => {
+                console.log("Autoplay blocked. Waiting for user interaction...");
+                // Add a click event to enable audio
+                document.addEventListener("click", () => {
+                    bgMusic.play();
+                    bgMusic.volumn = 0.3;
+                }, { once: true }); // Ensures it runs only once
+            });
+        });
+    </script>
+
+    <div id="background-images"></div>
+
+    <div id="start-container">
+        <div style="font-size: 100px; font-weight: bold">25/02</div>
+        <h1>Chào mừng hoàng hậu lên ngôi</h1>
+        <img src="./images/king.png" style="width: 20%; height: 20%">
+        <div style="color: rgb(50, 80, 203); font-size: 20px; font-weight: bold;">Vương miện của ngài đây, hãy nhận quà của tại hạ</div>
+        <button id="start-btn">Nhận quà</button>
+    </div>
+
+    <script>
+        document.getElementById("start-btn").addEventListener("click", function() {
+            document.getElementById("start-container").classList.add("fade-out");
+            setTimeout(() => {
+                document.getElementById("start-container").style.display = "none";
+                document.body.innerHTML += "<div id='title'>Khu vực quà tặng</div><div id='prize-container'></div><div id='gift-container'></div><button id='shuffle' onclick='shuffleGifts()'>Xào lại</button>";
+            }, 500); // Delay for smooth transition
+            setTimeout(() => {
+                loadPrizes();
+                enableAudioOnInteraction();
+            }, 1000)
+        });
+    </script>
+</body>
+</html>
+
+<script src="script.js"></script>
